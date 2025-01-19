@@ -1,0 +1,15 @@
+
+from sqlalchemy import String
+from app.models import Base
+from sqlalchemy.orm import Mapped, mapped_column
+
+
+class UserModel(Base):
+    __tablename__ = 'users'
+
+    id: Mapped[int] = mapped_column(primary_key=True, nullable=False)
+    username: Mapped[str] = mapped_column(String(80), nullable=False, unique=True)
+    email: Mapped[str] = mapped_column(nullable=False, unique=True)
+    password: Mapped[bytes] = mapped_column(nullable=False)
+    is_active: Mapped[bool] = mapped_column(default=True, nullable=False)
+
