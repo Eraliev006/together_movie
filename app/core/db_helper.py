@@ -36,6 +36,6 @@ class DatabaseHelper:
             yield session
 
 db_helper = DatabaseHelper(
-    url = settings.db.DB_URL,
+    url = settings.DB_URL,
     echo_pool=True
 )
