@@ -7,11 +7,8 @@ from pydantic_settings import BaseSettings
 BASE_DIR = Path(__file__).parent.parent
 
 
-class DBSettings(BaseModel):
-    DB_URL: str
-
 class Settings(BaseSettings):
-    db: DBSettings = DBSettings()
+    DB_URL: str
     api_prefix: str = '/api/v1'
     PORT: int = 8000
     HOST: str = 'localhost'
@@ -23,4 +20,4 @@ class Settings(BaseSettings):
 settings = Settings()
 
 if __name__ == "__main__":
-    print(settings.db.DB_URL)
+    print(settings.DB_URL)
