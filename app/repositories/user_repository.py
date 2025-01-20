@@ -5,7 +5,7 @@ from sqlalchemy.exc import SQLAlchemyError
 from app.models import UserModel
 from app.schemas import UserAddToDB, UserCreateSchema
 
-class UserRespository:
+class UserRepository:
     def __init__(self, session: AsyncSession):
         self._session = session
 
