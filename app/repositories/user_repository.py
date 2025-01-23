@@ -4,6 +4,8 @@ from sqlalchemy.exc import SQLAlchemyError
 
 from app.models import UserModel
 from app.schemas import UserAddToDB, UserCreateSchema
+from app.schemas.user_schemas import UserUpdateSchema
+
 
 class UserRepository:
     def __init__(self, session: AsyncSession):
@@ -35,7 +37,7 @@ class UserRepository:
         except SQLAlchemyError as e:
             raise e
         
-    async def update(self, user:UserModel, user_update: UserCreateSchema):
+    async def update(self, user:UserModel, user_update: UserUpdateSchema):
         try:
             for name, value in user_update.model_dump().items():
                 setattr(user, name, value)
