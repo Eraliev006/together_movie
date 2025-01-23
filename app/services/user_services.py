@@ -1,5 +1,4 @@
 import bcrypt
-from watchfiles import awatch
 
 from app.models import UserModel
 from app.repositories.user_repository import UserRepository
