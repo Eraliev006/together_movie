@@ -1,1 +1,1 @@
-from .user_schemas import UserAddToDB, UserCreateSchema, UserOutSchema, UserUpdateSchemag
+from .user_schemas import UserAddToDB, UserCreateSchema, UserOutSchema, UserUpdateSchema
