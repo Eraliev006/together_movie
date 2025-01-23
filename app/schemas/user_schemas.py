@@ -14,3 +14,6 @@ class UserOutSchema(BaseUser):
 
 class UserAddToDB(BaseUser):
     password: bytes
+
+class UserUpdateSchema(BaseUser):
+    pass
