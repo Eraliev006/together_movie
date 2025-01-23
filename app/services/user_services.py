@@ -22,7 +22,7 @@ class UserService:
         hashed_pwd = self.__hash_password(user.password)
         user = UserAddToDB(
             **user.model_dump(exclude={'password'}),
-            pasword = hashed_pwd
+            password = hashed_pwd
         )
         return await self._repository.create(user)
 
