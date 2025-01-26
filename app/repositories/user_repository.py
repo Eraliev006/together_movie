@@ -39,7 +39,7 @@ class UserRepository:
         
     async def update(self, user:UserModel, user_update: UserUpdateSchema):
         try:
-            for name, value in user_update.model_dump().items():
+            for name, value in user_update.model_dump(exclude_unset=True).items():
                 setattr(user, name, value)
             await self._session.commit()
             return user
