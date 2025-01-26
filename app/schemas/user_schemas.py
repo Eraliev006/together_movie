@@ -1,3 +1,5 @@
+from typing import Optional
+
 from pydantic import BaseModel, EmailStr
 
 
@@ -15,5 +17,7 @@ class UserOutSchema(BaseUser):
 class UserAddToDB(BaseUser):
     password: bytes
 
-class UserUpdateSchema(BaseUser):
-    pass
+class UserUpdateSchema(BaseModel):
+    username: Optional[str] = None
+    email: Optional[EmailStr] = None
+    is_active: Optional[bool] = True
