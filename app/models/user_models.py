@@ -1,7 +1,7 @@
 
-from sqlalchemy import String
+from sqlalchemy import String, ForeignKey
 from app.models import Base
-from sqlalchemy.orm import Mapped, mapped_column
+from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 
 class UserModel(Base):
@@ -12,4 +12,7 @@ class UserModel(Base):
     email: Mapped[str] = mapped_column(nullable=False, unique=True)
     password: Mapped[bytes] = mapped_column(nullable=False)
     is_active: Mapped[bool] = mapped_column(default=True, nullable=False)
+    current_room_id: Mapped[int] = mapped_column(ForeignKey("rooms.id"), nullable=True)
+
+    room: Mapped['RoomModel'] = relationship(back_populates='users')
 
