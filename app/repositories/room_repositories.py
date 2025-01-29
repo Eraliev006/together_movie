@@ -2,7 +2,8 @@ from sqlalchemy import select, Result
 from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from app.models import RoomModel, UserModel
+from app.models import RoomModel
+from app.schemas import RoomUpdateSchema, RoomCreateSchema
 
 
 class RoomRepositories:
@@ -38,7 +39,7 @@ class RoomRepositories:
 
     async def upgrade(self, room: RoomModel, room_update: RoomUpdateSchema) -> RoomModel:
         try:
-            for key, value in **room_update.model_dump(exclude_unset=True).items():
+            for key, value in room_update.model_dump(exclude_unset=True).items():
                 setattr(room, key, value)
             await self._session.commit()
             return room
