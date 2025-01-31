@@ -11,7 +11,7 @@ class UserRepository:
     def __init__(self, session: AsyncSession):
         self._session = session
 
-    async def create(self, user: UserAddToDB):
+    async def create(self, user: UserAddToDB) -> UserModel:
         try:
             user: UserModel = UserModel(**user.model_dump())
             self._session.add(user)
@@ -22,22 +22,22 @@ class UserRepository:
             await self._session.rollback()
             raise e
     
-    async def get_by_id(self, user_id: int):
+    async def get_by_id(self, user_id: int) -> UserModel | None:
         try:
             return await self._session.get(UserModel, user_id)
         except SQLAlchemyError as e:
             raise e
         
-    async def get_all(self):
+    async def get_all(self) -> list[UserModel] | None:
         try:
             stmt = select(UserModel)
             result: Result = await self._session.execute(stmt)
-            return result.scalars().all()
+            return list(result.scalars().all())
         
         except SQLAlchemyError as e:
             raise e
         
-    async def update(self, user:UserModel, user_update: UserUpdateSchema):
+    async def update(self, user:UserModel, user_update: UserUpdateSchema) -> UserModel | None:
         try:
             for name, value in user_update.model_dump(exclude_unset=True).items():
                 setattr(user, name, value)
