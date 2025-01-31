@@ -12,7 +12,7 @@ class UserModel(Base):
     email: Mapped[str] = mapped_column(nullable=False, unique=True)
     password: Mapped[bytes] = mapped_column(nullable=False)
     is_active: Mapped[bool] = mapped_column(default=True, nullable=False)
-    current_room_id: Mapped[int] = mapped_column(ForeignKey("rooms.id"), nullable=True)
+    current_room_id: Mapped[int] = mapped_column(ForeignKey("rooms.id", ondelete='SET NULL'), nullable=True)
 
-    room: Mapped['RoomModel'] = relationship(back_populates='users')
+    room: Mapped['RoomModel'] = relationship(back_populates='users', foreign_keys=[current_room_id])
 

@@ -1,7 +1,7 @@
-from sqlalchemy import String, ForeignKey
+from sqlalchemy import ForeignKey, String
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
-from app.models import Base
+from app.models import Base, UserModel
 
 
 class RoomModel(Base):
@@ -12,4 +12,5 @@ class RoomModel(Base):
 
     host_id: Mapped[int] = mapped_column(ForeignKey('users.id', ondelete='CASCADE'), nullable=False)
 
-    users: Mapped[list['UserModel']] = relationship(back_populates='room')
+    users: Mapped[list['UserModel']] = relationship( back_populates='room', foreign_keys=[UserModel.current_room_id])
+    host: Mapped['UserModel'] = relationship(foreign_keys=[host_id])
