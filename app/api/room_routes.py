@@ -28,7 +28,7 @@ async def get_all_room(room_service: RoomServiceDepends):
 
 @router.get('/{room_slug}')
 async def get_one(room_slug:str, room_service: RoomServiceDepends):
-    return await room_service.get_by_id(room_id)
+    return await room_service.get_one(room_slug)
 
 @router.delete('/{room_id}')
 async def delete(
