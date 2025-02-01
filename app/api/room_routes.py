@@ -14,6 +14,7 @@ router = APIRouter(
 )
 
 RoomServiceDepends = Annotated[RoomServices, Depends(get_room_service)]
+RoomByIdDepends = Annotated[RoomModel, Depends(get_room_by_id)]
 
 @router.post('/')
 async def create_room(
@@ -30,9 +31,9 @@ async def get_all_room(room_service: RoomServiceDepends):
 async def get_one(room_slug:str, room_service: RoomServiceDepends):
     return await room_service.get_one(room_slug)
 
-@router.delete('/{room_id}')
+@router.delete('/{room_slug}')
 async def delete(
-        room: RoomModel = Depends(get_room_by_id),
-        room_service: RoomServices = Depends(RoomServiceDepends)
+        room_service: RoomServiceDepends,
+        room: RoomByIdDepends
 ):
     return await room_service.delete(room)
