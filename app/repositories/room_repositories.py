@@ -21,9 +21,11 @@ class RoomRepositories:
             await self._session.rollback()
             raise e
 
-    async def get_by_id(self, room_id: int) -> RoomModel | None:
+    async def get_one(self, room_slug: str) -> RoomModel | None:
         try:
-            return await self._session.get(RoomModel, room_id)
+            stmt = select(RoomModel).where(RoomModel.slug == room_slug)
+            result: Result = await self._session.execute(stmt)
+            return result.scalar_one_or_none()
         except SQLAlchemyError as e:
             raise e
 
