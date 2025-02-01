@@ -11,8 +11,8 @@ class RoomServices:
     async def create(self, room: RoomCreateSchema) -> RoomModel:
         return await self._repository.create(room)
 
-    async def get_by_id(self, room_id: int) -> RoomModel:
-        return await self._repository.get_by_id(room_id)
+    async def get_one(self, room_slug: str) -> RoomModel:
+        return await self._repository.get_one(room_slug)
 
     async def get_all(self) -> list[RoomModel]:
         return await self._repository.get_all()
