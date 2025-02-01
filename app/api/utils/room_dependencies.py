@@ -15,8 +15,8 @@ async def get_room_service(
     repository = RoomRepositories(session)
     return RoomServices(repository)
 
-async def get_room_by_id(
-        room_id: int,
+async def get_room_by_slug(
+        room_slug: str,
         service: RoomServices = Depends(get_room_service)
 ):
-    return await service.get_by_id(room_id)
+    return await service.get_one(room_slug)
