@@ -5,7 +5,7 @@ from app.models import Base
 
 
 class FilmGenres(Base):
-    __tablename__ = 'film_genres'
+    __tablename__ = 'genres'
 
     id: Mapped[int] = mapped_column(nullable=False, primary_key=True)
     name: Mapped[str] = mapped_column(String(50), nullable=False)
