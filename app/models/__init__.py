@@ -5,3 +5,4 @@ from .film_model import Film
 from .film_genres import FilmGenres
 from .film_genres_association import film_genres_association_table
 from .film_actors import Actors
+from .film_actors_association import film_actor_association_table

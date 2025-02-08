@@ -1,9 +1,9 @@
 from datetime import datetime
 
-from sqlalchemy import Date, Text
-from sqlalchemy.orm import mapped_column, Mapped
+from sqlalchemy import Text
+from sqlalchemy.orm import mapped_column, Mapped, relationship
 
-from app.models import Base
+from app.models import Base, film_actor_association_table
 
 
 class Actors(Base):
@@ -14,4 +14,9 @@ class Actors(Base):
     birthday: Mapped[datetime | None] = mapped_column(nullable=True)
     biography: Mapped[str | None] = mapped_column(Text, nullable=True)
     death_date: Mapped[datetime | None] = mapped_column(nullable=True)
+
+    movies: Mapped[list["Movie"]] = relationship(
+        secondary=film_actor_association_table,
+        back_populates="actors"
+    )
 
