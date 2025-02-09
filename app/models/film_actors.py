@@ -15,7 +15,7 @@ class Actors(Base):
     biography: Mapped[str | None] = mapped_column(Text, nullable=True)
     death_date: Mapped[datetime | None] = mapped_column(nullable=True)
 
-    movies: Mapped[list["Movie"]] = relationship(
+    movies: Mapped[list["Film"]] = relationship(
         secondary=film_actor_association_table,
         back_populates="actors"
     )
