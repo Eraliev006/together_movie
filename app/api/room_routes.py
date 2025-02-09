@@ -3,18 +3,18 @@ from typing import Annotated
 from fastapi import APIRouter
 from fastapi.params import Depends
 
-from app.api.utils import get_room_service, get_room_by_id
+from app.api.utils import get_room_service, get_room_by_slug
 from app.models import RoomModel
 from app.schemas import RoomCreateSchema
 from app.services.room_services import RoomServices
 
 router = APIRouter(
-    prefix='/room',
+    prefix='/rooms',
     tags=['room']
 )
 
 RoomServiceDepends = Annotated[RoomServices, Depends(get_room_service)]
-RoomByIdDepends = Annotated[RoomModel, Depends(get_room_by_id)]
+RoomByIdDepends = Annotated[RoomModel, Depends(get_room_by_slug)]
 
 @router.post('/')
 async def create_room(
