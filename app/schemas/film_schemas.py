@@ -17,10 +17,11 @@ class BaseFilm(BaseModel):
     age_rating: str | None
 
 class FilmCreateSchema(BaseFilm):
-    pass
+    genre_ids: list[int]
 
 class FilmOutSchemas(BaseFilm):
     id: int
+    genres: list['GenreOutSchemas']
 
 class FilmUpdateSchema(BaseFilm):
     pass
