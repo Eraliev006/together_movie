@@ -20,7 +20,7 @@ class FilmRepositories:
             raise e
 
     async def __get_film_with_genres(self, film_id: int) -> Film | None:
-        stmt = select(Film).options(selectinload(Film.genres)).where(Film.id == film_id)
+        stmt = select(Film).where(Film.id == film_id).options(selectinload(Film.genres))
         result: Result = await self._session.execute(stmt)
         film_with_genres = result.scalar_one_or_none()
 
