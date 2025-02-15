@@ -9,6 +9,7 @@ class GenreAddToDB(GenreCreateSchemas):
 
 class GenreOutSchemas(GenreCreateSchemas):
     id: int
+    slug: str
 
 class GenreUpdateSchemas(GenreCreateSchemas):
     pass
