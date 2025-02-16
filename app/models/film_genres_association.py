@@ -1,4 +1,4 @@
-from sqlalchemy import UniqueConstraint
+from sqlalchemy import UniqueConstraint, ForeignKey
 from sqlalchemy.orm import Mapped, mapped_column
 
 from app.models import Base
@@ -9,5 +9,5 @@ class FilmGenreAssociation(Base):
         UniqueConstraint('film_id', 'genre_id', name='idx_unique_film_genre'),
     )
 
-    film_id: Mapped[int] = mapped_column(primary_key=True, nullable=False)
-    genre_id: Mapped[int] = mapped_column(primary_key=True, nullable=False)
+    film_id: Mapped[int] = mapped_column(ForeignKey('genres.id'), primary_key=True, nullable=False)
+    genre_id: Mapped[int] = mapped_column(ForeignKey('films.id'),primary_key=True, nullable=False)
