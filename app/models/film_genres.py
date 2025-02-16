@@ -2,7 +2,6 @@ from sqlalchemy import String
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app.models import Base
-from .film_genres_association import film_genres_association_table
 
 
 
@@ -14,5 +13,5 @@ class FilmGenres(Base):
     slug: Mapped[str] = mapped_column(nullable=False)
 
     films: Mapped[list['Film']] = relationship(
-        secondary=film_genres_association_table, back_populates="genres"
+        secondary='film_genres_association', back_populates="genres"
     )

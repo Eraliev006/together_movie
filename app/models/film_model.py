@@ -2,7 +2,6 @@ from sqlalchemy import String, Text, Date
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app.models import Base, film_actor_association_table
-from .film_genres_association import film_genres_association_table
 
 class Film(Base):
     __tablename__ = 'films'
@@ -21,7 +20,7 @@ class Film(Base):
     age_rating: Mapped[str | None] = mapped_column(String(10), nullable=True)
 
     genres: Mapped[list['FilmGenres']] = relationship(
-        secondary=film_genres_association_table, back_populates="films"
+        secondary='film_genres_association', back_populates="films"
     )
     actors: Mapped[list["Actors"]] = relationship(
         secondary=film_actor_association_table,
