@@ -18,6 +18,7 @@ class BaseFilm(BaseModel):
 
 class FilmCreateSchema(BaseFilm):
     genre_ids: list[int]
+    actor_ids: list[int]
 
 class FilmOutSchemas(BaseFilm):
     id: int
