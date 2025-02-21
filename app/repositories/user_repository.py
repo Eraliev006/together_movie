@@ -54,3 +54,8 @@ class UserRepository:
         except SQLAlchemyError as e:
             await self._session.rollback()
             raise e
+
+    async def get_user_by_email(self, email: str) -> UserModel | None:
+        stmt = select(UserModel).where(UserModel.email == email)
+        result: Result = await self._session.execute(stmt)
+        return result.scalar_one_or_none()

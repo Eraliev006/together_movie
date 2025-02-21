@@ -40,3 +40,6 @@ class UserService:
 
     async def delete(self, user: UserModel):
         return await self._repository.delete(user)
+
+    async def get_user_by_email(self, email: str) -> UserModel | None:
+        return await self._repository.get_user_by_email(email)
