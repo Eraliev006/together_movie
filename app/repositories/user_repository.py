@@ -55,7 +55,7 @@ class UserRepository:
             await self._session.rollback()
             raise e
 
-    async def get_user_by_email(self, email: str) -> UserModel | None:
-        stmt = select(UserModel).where(UserModel.email == email)
+    async def get_user_by_email_or_username(self, email: str | None, username: str | None) -> UserModel | None:
+        stmt = select(UserModel).where((UserModel.email == email) | (UserModel.username == username))
         result: Result = await self._session.execute(stmt)
         return result.scalar_one_or_none()
