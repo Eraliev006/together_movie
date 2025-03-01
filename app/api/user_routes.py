@@ -14,14 +14,14 @@ router = APIRouter(
 
 UserServiceDepends = Annotated[UserService, Depends(get_user_service)]
 
-@router.post('/', response_model=UserOutSchema, status_code=201)
+@router.post('/', response_model=UserOutSchema, status_code=HTTP_201_CREATED)
 async def create(user: UserCreateSchema, user_service: UserServiceDepends):
     return await user_service.create(user)
 
 
 @router.get('/',
                 response_model = list[UserOutSchema],
-                status_code = HTTP_201_CREATED)
+                status_code = HTTP_200_OK)
 async def get_users(user_service: UserServiceDepends):
     return await user_service.get_all()
 
