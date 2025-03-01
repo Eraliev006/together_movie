@@ -7,6 +7,7 @@ class RoomCreateSchema(BaseModel):
 
 class RoomOutSchema(RoomCreateSchema):
     id: int
+    slug: str
 
 class RoomUpdateSchema(BaseModel):
     name: str
