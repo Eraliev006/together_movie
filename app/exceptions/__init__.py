@@ -1,1 +1,2 @@
 from .user_exc import UserAlreadyExistsException, UserNotFoundException, user_not_found_exception_handler, user_already_exists_handler
+from .room_exc import RoomAlreadyExists,RoomNotFoundException,room_not_found_exception_handler,room_already_exists_exception_handler
