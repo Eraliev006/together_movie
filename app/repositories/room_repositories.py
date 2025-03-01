@@ -10,9 +10,9 @@ class RoomRepositories:
     def __init__(self, session: AsyncSession) -> None:
         self._session = session
 
-    async def create(self, room: RoomCreateSchema) -> RoomModel:
+    async def create(self, room: RoomCreateSchema, slug: str) -> RoomModel | None:
         try:
-            room = RoomModel(**room.model_dump())
+            room = RoomModel(**room.model_dump(), slug=slug)
             self._session.add(room)
             await self._session.commit()
             await self._session.refresh(room)
@@ -39,7 +39,7 @@ class RoomRepositories:
         except SQLAlchemyError as e:
             raise e
 
-    async def upgrade(self, room: RoomModel, room_update: RoomUpdateSchema) -> RoomModel:
+    async def upgrade(self, room: RoomModel, room_update: RoomUpdateSchema) -> RoomModel | None:
         try:
             for key, value in room_update.model_dump(exclude_unset=True).items():
                 setattr(room, key, value)
@@ -49,10 +49,18 @@ class RoomRepositories:
             await self._session.rollback()
             raise e
 
-    async def delete(self, room: RoomModel):
+    async def delete(self, room: RoomModel) -> None:
         try:
             await self._session.delete(room)
             await self._session.commit()
         except SQLAlchemyError as e:
             await self._session.rollback()
+            raise e
+
+    async def get_room_by_name(self, name: str) -> RoomModel | None:
+        try:
+            stmt = select(RoomModel).where(RoomModel.name == name)
+            result: Result = await self._session.execute(stmt)
+            return result.scalar_one_or_none()
+        except SQLAlchemyError as e:
             raise e
