@@ -10,9 +10,9 @@ class RoomRepositories:
     def __init__(self, session: AsyncSession) -> None:
         self._session = session
 
-    async def create(self, room: RoomCreateSchema) -> RoomModel | None:
+    async def create(self, room: RoomCreateSchema, slug: str) -> RoomModel | None:
         try:
-            room = RoomModel(**room.model_dump())
+            room = RoomModel(**room.model_dump(), slug=slug)
             self._session.add(room)
             await self._session.commit()
             await self._session.refresh(room)
