@@ -34,7 +34,7 @@ app.add_middleware(
 app.add_exception_handler(UserNotFoundException, user_not_found_exception_handler)
 app.add_exception_handler(UserAlreadyExistsException, user_already_exists_handler)
 app.add_exception_handler(RoomNotFoundException, room_not_found_exception_handler)
-app.add_exception_handler(RoomAlreadyExists, room_already_exists_exception_handler())
+app.add_exception_handler(RoomAlreadyExists, room_already_exists_exception_handler)
 app.include_router(router)
 
 if __name__ == '__main__':
