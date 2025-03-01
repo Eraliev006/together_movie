@@ -31,7 +31,7 @@ class UserService:
     async def create(self, user: UserCreateSchema) -> UserOutSchema | None:
         exists_user = await self.get_user_by_email_or_username(user.email, user.username)
         if exists_user:
-            raise UserAlreadyExistsException(f'User with {user.email}-email  or {user.username}-usernname already exists')
+            raise UserAlreadyExistsException(f'User with {user.email}-email or {user.username}-username already exists')
 
         hashed_pwd = self.__hash_password(user.password)
         user = UserAddToDB(
