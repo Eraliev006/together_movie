@@ -1,9 +1,9 @@
-from slugify import slugify
 
 from app.models import FilmGenres
 from app.repositories import GenreRepositories
 from app.schemas import GenreCreateSchemas, GenreUpdateSchemas
 from app.schemas.genre_schemas import GenreAddToDB
+from app.services.utils import generate_slug
 
 
 class GenreService:
@@ -11,12 +11,9 @@ class GenreService:
         self._repository = repository
 
     @staticmethod
-    def __generate_slug(name: str) -> str:
-        return slugify(name, separator='-')
-
-    def __convert_to_add_to_db_schemas(self, genre: GenreCreateSchemas) -> GenreAddToDB:
+    def __convert_to_add_to_db_schemas(genre: GenreCreateSchemas) -> GenreAddToDB:
         genre_name = genre.name
-        genre = GenreAddToDB(name = genre_name, slug = self.__generate_slug(genre_name))
+        genre = GenreAddToDB(name = genre_name, slug = generate_slug(genre_name))
         return genre
 
     async def create(self, genre: GenreCreateSchemas) -> FilmGenres | None:
