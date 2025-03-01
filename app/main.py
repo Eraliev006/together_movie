@@ -2,12 +2,16 @@ from contextlib import asynccontextmanager
 
 import uvicorn
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 
 from app.api import router
 from app.core import settings, db_helper
 from app.exceptions import UserNotFoundException, user_not_found_exception_handler, user_already_exists_handler, \
     UserAlreadyExistsException
 
+origins = [
+    '*'
+]
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -17,6 +21,14 @@ async def lifespan(app: FastAPI):
 
 
 app = FastAPI(lifespan=lifespan)
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 app.add_exception_handler(UserNotFoundException, user_not_found_exception_handler)
 app.add_exception_handler(UserAlreadyExistsException, user_already_exists_handler)
